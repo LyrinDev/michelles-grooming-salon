@@ -1,0 +1,59 @@
+<style>
+    input.ng-invalid.ng-touched {
+      border: 1px solid red;
+    }
+  </style>
+  
+  <div class="row justify-content-center">
+    <div *ngIf="isLoading" style="text-align: center">
+      <spinner></spinner>
+    </div>
+    <form
+      #authForm="ngForm"
+      (ngSubmit)="onSubmit(authForm)"
+      style="display: block; width: 40%; margin: 0 auto"
+    >
+      <div class="form-group">
+        <div class="input-group mb-3" style="padding-top: 20px">
+          <span class="input-group-text" style="width: 100px" id="basic-addon1"
+            >Username</span
+          >
+          <input
+            type="email"
+            class="form-control"
+            placeholder="user@email.com"
+            aria-label="Username"
+            aria-describedby="username"
+            name="username"
+            required
+            ngModel
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="password" style="width: 100px"
+            >Password</span
+          >
+  
+          <input
+            type="password"
+            class="form-control"
+            placeholder="password"
+            aria-label="password"
+            aria-describedby="password"
+            required
+            pattern=".{6,}"
+            name="password"
+            ngModel
+          />
+        </div>
+        <button
+          class="btn btn-dark float-end"
+          type="submit"
+          [disabled]="!authForm.valid && authForm.touched"
+        >
+          Sign Up
+        </button>
+      </div>
+    </form>
+  </div>
+  

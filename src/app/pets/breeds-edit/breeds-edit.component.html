@@ -1,0 +1,55 @@
+<style>
+  .spaces-added {
+    margin-top: 15px;
+  }
+  .select.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+  imput.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+
+</style>
+
+<div class="row">
+  <div class="col-xs-12">
+    <form (ngSubmit)="onSubmit(b)" #b="ngForm" >
+      <label class="spaces-added" for="species">Select Pet Type</label>
+      <select
+        class="form-control spaces-added"
+        id="species"
+        name="species"
+        required 
+        [(ngModel)]="selectedValue"
+            >
+      <option class="dropdown-item" selected [ngValue]="null">Select A Pet Type</option>
+        <option *ngFor="let sepciesTypes of species" [ngValue]="sepciesTypes">
+          {{ sepciesTypes }}
+        </option>
+      </select>
+
+      <label for="type" class="spaces-added">Please Enter New Breed</label>
+      <input
+        type="text"
+        id="type"
+        name="type"
+        class="spaces-added form-control"
+        placeholder="Enter Breed"
+        required
+        [(ngModel)]="typeOfPet"
+     
+      />
+
+      <button style="margin-left: 15px;" type="submit" class="btn btn-dark float-end spaces-added">Submit</button>
+      <button (click)="onChange(b)" type="button"class="btn btn-dark float-end spaces-added">Clear</button>
+    </form>
+    <div style="margin-top: 25px;">
+        <h3>Current Breeds</h3>
+        <ul>
+            <li *ngFor="let breed of breedList">
+                {{ breed.species }} - {{ breed.breed }}
+            </li>
+        </ul>
+    </div>
+  </div>
+</div>

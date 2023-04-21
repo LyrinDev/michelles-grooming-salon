@@ -1,0 +1,9 @@
+select.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+  select.form-select {
+    color: black;
+  }
+  select.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }

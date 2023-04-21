@@ -1,0 +1,158 @@
+<style>
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+select.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+select.form-select {
+  color: black;
+}
+input[type="checkbox"]:not(:checked) + label {
+  background-color: transparent !important;
+}
+
+</style>
+<form
+  class="row g-3"
+  style="margin-top: 15px"
+  (ngSubmit)="onSubmit()"
+  [formGroup]="petForm"
+>
+  <div class="col-md-6">
+    <label for="firstName" class="form-label fw-bolder">Pet First Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="firstName"
+      formControlName="firstName"
+      placeholder="Pet Name"
+    />
+  </div>
+  <div class="col-md-6">
+    <label for="lastName" class="form-label fw-bolder">Pet Last Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="lastName"
+      formControlName="lastName"
+      placeholder="Parent Last Name"
+    />
+  </div>
+  
+  <div class="col-md-12">
+    <div formGroupName="breedGroup" class="row" style="margin-top: 15px">
+      <div class="col-md-6">
+        <div class="input-group" >
+          <label for="species" class="input-group-text" style="width: 135px"
+            >Select Pet Type</label
+          >
+          <select
+            class="form-select"
+            id="species"
+            (ngModelChange)="onSpeciesChange()"
+            formControlName="species"
+            name="species"
+            #species
+          >
+            <option selected [value]=null>Choose Pet Type</option>
+            <option 
+              *ngFor="let petTypes of sortedSpeciesList" 
+              [ngValue]="petTypes"
+            >
+              {{ petTypes }}
+            </option>
+     
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="input-group">
+          
+          <label class="input-group-text" for="breed" style="width: 135px; width:auto;"
+            >Select Pet Breed</label
+          >
+          <select
+            class="form-select"
+            id="breed"
+            formControlName="breed"
+            (ngModelChange)="onBreedChange()"
+            name="breed"
+          >
+            <option selected [value]=null>Choose Breed</option>
+
+            <option
+              *ngFor="let breedTypes of sortedBreedList"
+              [ngValue]="breedTypes"
+            >
+              {{ breedTypes }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <label for="imagePath" class="form-label fw-bolder">Pet Photo</label>
+    <input
+      class="form-control"
+      id="imagePath"
+      #imagePath
+      placeholder="Pet Photo URL"
+      formControlName="imagePath"
+    />
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-xs-12">
+        <img
+          [src]="imagePath.value"
+          class="img-responsive img-thumbnail"
+          style="max-width: 60%"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="form-check col-md-6 d-flex flex-column ">
+    <div>
+      <label  class="float-end" type="label" for="label" id="redLabel" name="redLabel" 
+      style = "padding-top: 15px; margin-left: 10px;"
+      #redLabel>
+      Rabies vaccine current?
+    </label>
+    <div style = "padding-top: 15px;">
+        <input
+          id="hasRabies"
+          name="hasRabies"
+          class="form-check-input float-end"
+          type="checkbox"
+          formControlName="hasRabies"
+          (change)="toggleRed()"
+          #hasRabies
+          
+        />
+      </div>
+    </div>
+
+  <div style="padding-top: 15px;">
+    <button
+      class="btn btn-dark float-end"
+      style="width: 150px;"
+      type="submit"
+      [disabled]="(!petForm.valid && petForm.touched) || !petForm.touched"
+    >
+      Submit
+    </button>
+    <button
+      class="btn btn-dark float-end"
+      style="width: 150px; margin-right: 10px;"
+      type="button"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>
+</form>
